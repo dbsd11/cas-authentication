@@ -155,7 +155,8 @@ function CASAuthentication(options) {
     this.cas_host        = parsed_cas_url.hostname;
     // use port if specified, default to 80 or 443 per `cas_url` protocol
     this.cas_port        = options.cas_port !== undefined ? options.cas_port : parsed_cas_url.protocol === 'http:' ? 80 : 443;
-    this.cas_path        = parsed_cas_url.pathname;
+    // make sure we do not start the path with double //
+    this.cas_path        = parsed_cas_url.pathname == "/" ? "" : parsed_cas_url.pathname;
 
     this.service_url     = options.service_url;
 
